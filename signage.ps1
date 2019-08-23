@@ -17,6 +17,24 @@
 . $ConfigFilePath
 
 #=============================================================
+# SubModule : CopyFromSource / Copy source to destination via temporary file.
+#=============================================================
+function CopyFromSource ([string]$SourcePath, [string]$DestinationPath)
+{
+    try
+    {
+        $TempFile = New-TemporaryFile                            #Create temporary file object.
+        Copy-Item $SourcePath $TempFile.FullName                 #Copy source to temp.
+        Move-Item ($TempFile.FullName) $DestinationPath -Force   #Move temp to destination(with override option).
+    }
+    catch
+    {
+        Write-Error("error: can't copy or move")
+        # ... If you know, Could you tell me how to program error handling?
+    }
+}
+
+#=============================================================
 # Main()
 #=============================================================
 #Join path.
@@ -44,21 +62,3 @@ else
 
 #Execute slide show on LibreOffice Impress.
 & "$LibreOfficePath" -show $CurrentSignageFilePath
-
-#=============================================================
-# SubModule : CopyFromSource / Copy source to destination via temporary file.
-#=============================================================
-function CopyFromSource ([string]$SourcePath, [string]$DestinationPath)
-{
-    try
-    {
-        $TempFile = New-TemporaryFile                            #Create temporary file object.
-        Copy-Item $SourcePath $TempFile.FullName                 #Copy source to temp.
-        Move-Item ($TempFile.FullName) $DestinationPath -Force   #Move temp to destination(with override option).
-    }
-    catch
-    {
-        Write-Error("error: can't copy or move")
-        # ... If you know, Could you tell me how to program error handling?
-    }
-}
