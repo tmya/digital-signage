@@ -1,10 +1,6 @@
 # digital-signage
 An simple digital signage system with LibreOffice Impress on Windows 10 PowerShell
 
-## Important notice.
-
-This project is incompleted. Make it will soon.
-
 ## What's this.
 
 simple setup to light digital signage system for PC on a stick.
