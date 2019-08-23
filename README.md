@@ -20,6 +20,13 @@ Require: Libreoffice Impress
 1. add second line, `[string]$LibreOfficePath = "C:\Program Files\LibreOffice\program\soffice.exe"` (It's default 64bit installation. If you not, change this file path config.)
 1. If you want to start on boot add (signage.ps1 or signage.bat) to taskschd.msc.
 
+Example of config.ps1
+
+```
+[string]$SignageFilePath = "C:\some\path\ds.odp"
+[string]$LibreOfficePath = "C:\Program Files\LibreOffice\program\soffice.exe"
+```
+
 ### Notice.
 
 Sometimes, cannot execute powershell(signage.ps1) due to Windows execution policy.
@@ -29,11 +36,4 @@ In this case, You can choose two options.
 - You should change execution policy after escalate to administrator in PowerShell commands.
 
 For more information, see [Set-ExecutionPolicy : Microsoft](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6)
-
-Example of config.ps1
-
-```
-[string]$SignageFilePath = "C:\some\path\ds.odp"
-[string]$LibreOfficePath = "C:\Program Files\LibreOffice\program\soffice.exe"
-```
 
