@@ -3,7 +3,7 @@ An simple digital signage system with LibreOffice Impress on Windows 10 PowerShe
 
 ## What's this.
 
-simple setup to light digital signage system for PC on a stick.
+simple setup to simple digital signage system for PC on a stick.
 
 ### Sequence of start script.
 
@@ -15,7 +15,7 @@ simple setup to light digital signage system for PC on a stick.
 
 Require: Libreoffice Impress
 
-1. Create file "config.ps1". it's same folder with "signage.ps1".
+1. Create blank file "config.ps1". it's same folder with "signage.ps1".
 1. Edit "config.ps1" add first line, `[string]$SignageFilePath = "C:\some\path\ds.odp"` (You should change this file path config.)
 1. add second line, `[string]$LibreOfficePath = "C:\Program Files\LibreOffice\program\soffice.exe"` (It's default 64bit installation. If you not, change this file path config.)
 1. If you want to start on boot add (signage.ps1 or signage.bat) to taskschd.msc.
