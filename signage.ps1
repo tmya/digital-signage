@@ -1,34 +1,64 @@
-﻿# まだ未完成
-# This program is incomplete
+﻿# SPDX-License-Identifier: MIT
+# Copyright (C) 2019 Akio Tomita
 
+#=============================================================
+# v 1.0 2019/08/23
+#=============================================================
+
+#=============================================================
+# Settings (may not be change this config.)
+#=============================================================
 [string]$ConfigFilePath = ".\config.ps1"
-[string]$TempSignageFilePath = ".\sign.odp"
+[string]$CurrentSignageFile = "sign.odp"
 
-#コンフィグを読む
+#=============================================================
+# Include Config
+#=============================================================
 . $ConfigFilePath
 
-#サイネージファイルが存在しているかチェック
-if (Test-Path $TempSignageFilePath)
-{
-    #サイネージファイルが新しいかチェック
-    if((Get-ItemProperty $SignageFilePath).LastAccessTime -gt (Get-ItemProperty $TempSignageFilePath).LastAccessTime)
-    {
-        #新しいのを発見した
-        #サイネージファイルを手元に持ってくる
+#=============================================================
+# Main()
+#=============================================================
+#Join path.
+[string]$CurrentSignageFilePath = Join-Path $PSScriptRoot $CurrentSignageFile
 
-        echo "持ってくる ファイルが新しい"
+#If file exist more checking something.
+if (Test-Path $CurrentSignageFilePath)
+{
+    #If newer file exist.
+    if((Get-ItemProperty $SignageFilePath).LastAccessTime -gt (Get-ItemProperty $CurrentSignageFilePath).LastAccessTime)
+    {
+        #File has been updated. Copy from source.
+        CopyFromSource $SignageFilePath $CurrentSignageFilePath
     }
     else
     {
-        echo "ファイルが新しくない"
+        #File is not modified. Nothing to do.
     }
 }
 else
 {
-    #サイネージファイルを手元に持ってくる
-    echo "持ってくる ファイルが無い"
+    #File was not found. Copy from source.
+    CopyFromSource $SignageFilePath $CurrentSignageFilePath
 }
 
+#Execute slide show on LibreOffice Impress.
+& "$LibreOfficePath" -show $CurrentSignageFilePath
 
-#LibreOffice Impressで実行
-## soffice -show %filepath%.odp
+#=============================================================
+# SubModule : CopyFromSource / Copy source to destination via temporary file.
+#=============================================================
+function CopyFromSource ([string]$SourcePath, [string]$DestinationPath)
+{
+    try
+    {
+        $TempFile = New-TemporaryFile                            #Create temporary file object.
+        Copy-Item $SourcePath $TempFile.FullName                 #Copy source to temp.
+        Move-Item ($TempFile.FullName) $DestinationPath -Force   #Move temp to destination(with override option).
+    }
+    catch
+    {
+        Write-Error("error: can't copy or move")
+        # ... If you know, Could you tell me how to program error handling?
+    }
+}
