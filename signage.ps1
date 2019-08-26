@@ -1,4 +1,4 @@
-﻿# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MIT
 # Copyright (C) 2019 Akio Tomita
 
 #=============================================================
@@ -61,4 +61,4 @@ else
 }
 
 #Execute slide show on LibreOffice Impress.
-& "$LibreOfficePath" -show $CurrentSignageFilePath
+& "$LibreOfficePath" -nocrashreport -show $CurrentSignageFilePath
