@@ -61,4 +61,4 @@ else
 }
 
 #Execute slide show on LibreOffice Impress.
-& "$LibreOfficePath" -nocrashreport -show $CurrentSignageFilePath
+& "$LibreOfficePath" -norestore -show $CurrentSignageFilePath
