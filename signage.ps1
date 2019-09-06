@@ -44,7 +44,7 @@ function CopyFromSource ([string]$SourcePath, [string]$DestinationPath)
 if (Test-Path $CurrentSignageFilePath)
 {
     #If newer file exist.
-    if((Get-ItemProperty $SignageFilePath).LastAccessTime -gt (Get-ItemProperty $CurrentSignageFilePath).LastAccessTime)
+    if((Get-ItemProperty $SignageFilePath).LastWriteTime -gt (Get-ItemProperty $CurrentSignageFilePath).LastWriteTime)
     {
         #File has been updated. Copy from source.
         CopyFromSource $SignageFilePath $CurrentSignageFilePath
